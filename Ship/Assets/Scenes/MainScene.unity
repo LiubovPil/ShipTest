@@ -439,10 +439,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b923d2bfbfa61ce4d911afe8e8181224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shipLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
   _minSpawnShipTime: 3
   _maxSpawnShipTime: 7
   _maxNumShip: 7
-  _layerMask: 8
 --- !u!1 &2073039449
 GameObject:
   m_ObjectHideFlags: 0

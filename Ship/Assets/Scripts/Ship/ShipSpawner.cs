@@ -6,10 +6,10 @@ namespace ShipTest.Ship
 {
     public class ShipSpawner : MonoBehaviour
     {
+        [SerializeField] private LayerMask _shipLayerMask;
         [SerializeField] private int _minSpawnShipTime;
         [SerializeField] private int _maxSpawnShipTime;
         [SerializeField] private int _maxNumShip;
-        [SerializeField] private int _layerMask;
 
         private Timer _spawnShipTimer;
 
@@ -43,7 +43,7 @@ namespace ShipTest.Ship
         }
         private void SpawnShip()
         {
-            if ((Physics.OverlapSphere(transform.position, 1.0f, _layerMask)).Length == 0)
+            if ((Physics.OverlapSphere(transform.position, 1.0f, _shipLayerMask)).Length == 0)
             {
                 if (_countShip < _maxNumShip)
                 {
