@@ -6,8 +6,14 @@ namespace ShipTest.Ship
 {
     public class ShipMovement : MonoBehaviour
     {
-        private bool _isActivated = false; 
-        private int _shipSpeed;
+        [SerializeField] private int _minShipSpeed;
+        [SerializeField] private int _maxShipSpeed;
+
+        private bool _isActivated = false;
+
+        private string _currentShipName;
+
+        private int _currentShipSpeed;
 
         private void FixedUpdate()
         {
@@ -16,16 +22,19 @@ namespace ShipTest.Ship
         }
         private void Move()
         {
-
+            //MoveTowards until checkPoint
         }
-        public void OnEnter(ShipData shipData)
+        public void OnEnter(string shipName, Vector3 startPosition)
         {
+            transform.position = startPosition;
+            _currentShipSpeed = Random.Range(_minShipSpeed, _maxShipSpeed);
+            _currentShipName = shipName;
             _isActivated = true;
-            _shipSpeed = shipData.Speed;
         }
-        public void OnExit()
+        public string OnExit()
         {
             _isActivated = false;
+            return _currentShipName;
         }
     }
 }

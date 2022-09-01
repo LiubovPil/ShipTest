@@ -1,21 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using ShipTest.Events;
+using ShipTest.Utility;
 
 namespace ShipTest
 {
     public class ShipHealth : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        [SerializeField] private int _shipHealth;
 
-        // Update is called once per frame
-        void Update()
+        private DestroyShipEvent _destroyShipEvent = new DestroyShipEvent();
+
+        private void Start()
         {
-        
+            EventManager.Instance.AddInvokerChangeHealthEvent(this);
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Projectile"))
+            {
+                if (--_shipHealth == 0)
+                {
+                    _destroyShipEvent.Invoke(gameObject);
+                }
+            }
+        }
+        public void AddListenerDestroyShipEvent(UnityAction<GameObject> listener)
+        {
+            _destroyShipEvent.AddListener(listener);
         }
     }
 }
