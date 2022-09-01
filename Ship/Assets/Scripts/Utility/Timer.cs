@@ -1,21 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShipTest.Timer
+namespace ShipTest.Utility
 {
-    public class Timer : MonoBehaviour
-    {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+	public class Timer : MonoBehaviour
+	{
+		private float _duration;
+		private float _currentTime;
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
-    }
+		private bool _started;
+		private bool _finished;
+
+		public float Duration
+		{
+			get { return _duration; }
+			set { _duration = value; }
+		}
+		public bool Started
+		{
+			get { return _started; }
+		}
+		public bool Finished
+		{
+			get { return _finished; }
+		}
+		private void Update()
+		{
+			if (_started && !_finished)
+			{
+				_currentTime += Time.deltaTime;
+				if (_currentTime >= _duration)
+				{
+					_finished = true;
+					_started = false;
+				}
+			}
+		}
+		public void Run()
+		{
+			if (_duration > 0)
+			{
+				_started = true;
+				_finished = false;
+
+				_currentTime = 0;
+			}
+		}
+	}
 }
