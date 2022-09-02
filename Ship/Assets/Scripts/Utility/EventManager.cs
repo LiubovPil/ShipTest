@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using ShipTest.Ship;
+using ShipTest.Projectile;
 
 namespace ShipTest.Utility
 {
@@ -9,8 +10,8 @@ namespace ShipTest.Utility
     {
         private static EventManager _instance = null;
 
-        private List<ShipHealth> _invokersDestroyShipEvent = new List<ShipHealth>();
-        private List<UnityAction<GameObject>> _listenersDestroyShipEvent = new List<UnityAction<GameObject>>();
+        private List<HealthCount> _invokersZeroHealthEvent = new List<HealthCount>();
+        private List<UnityAction<GameObject>> _listenersZeroHealthEvent = new List<UnityAction<GameObject>>();
 
         public static EventManager Instance
         {
@@ -28,19 +29,19 @@ namespace ShipTest.Utility
             if (_instance == null)
                 _instance = this;
         }
-        public void AddInvokerChangeHealthEvent(ShipHealth invoker)
+        public void AddInvokerZeroHealthEvent(HealthCount invoker)
         {
-            _invokersDestroyShipEvent.Add(invoker);
+            _invokersZeroHealthEvent.Add(invoker);
 
-            foreach (UnityAction<GameObject> listener in _listenersDestroyShipEvent)
-                invoker.AddListenerDestroyShipEvent(listener);
+            foreach (UnityAction<GameObject> listener in _listenersZeroHealthEvent)
+                invoker.AddListenerZeroHealthEvent(listener);
         }
-        public void AddListenerChangeHealthEvent(UnityAction<GameObject> listener)
+        public void AddListenerZeroHealthEvent(UnityAction<GameObject> listener)
         {
-            _listenersDestroyShipEvent.Add(listener);
+            _listenersZeroHealthEvent.Add(listener);
 
-            foreach (ShipHealth invoker in _invokersDestroyShipEvent)
-                invoker.AddListenerDestroyShipEvent(listener);
+            foreach (HealthCount invoker in _invokersZeroHealthEvent)
+                invoker.AddListenerZeroHealthEvent(listener);
         }
     }
 }

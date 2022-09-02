@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using ShipTest.Utility;
 
 namespace ShipTest.Ship
 {
-    public class ShipMovement : MonoBehaviour
+    public class ShipMovement : MonoBehaviour, IPooling
     {
+        [Header("The settings of movement")]
         [SerializeField] private int _minShipSpeed;
         [SerializeField] private int _maxShipSpeed;
 

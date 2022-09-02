@@ -4,9 +4,10 @@ using ShipTest.Pooler;
 
 namespace ShipTest.Ship
 {
-    public class ShipSpawner : MonoBehaviour
+    public class ShipSpawner : Creator
     {
         [SerializeField] private LayerMask _shipLayerMask;
+        [Header("The settings of spawn")]
         [SerializeField] private int _minSpawnShipTime;
         [SerializeField] private int _maxSpawnShipTime;
         [SerializeField] private int _maxNumShip;
@@ -25,10 +26,6 @@ namespace ShipTest.Ship
 
             ConfigurateTimer();
         }
-        private void Start()
-        {
-            EventManager.Instance.AddListenerChangeHealthEvent(ReturnShip);
-        }
         private void Update()
         {
             if (_spawnShipTimer.Finished || _retrySpawnShip)
@@ -37,7 +34,6 @@ namespace ShipTest.Ship
         private void ConfigurateTimer()
         {
             int spawnShipTime = Random.Range(_minSpawnShipTime, _maxSpawnShipTime);
-            Debug.Log("Duration " + spawnShipTime);
             _spawnShipTimer.Duration = spawnShipTime;
             _spawnShipTimer.Run();
         }
@@ -50,9 +46,7 @@ namespace ShipTest.Ship
                     _retrySpawnShip = false;
                     int indexShip = Random.Range(0, _shipNames.Length);
 
-                    GameObject ship = PoolerController.Instance.GetFromPool(_shipNames[indexShip]);
-                    ship.SetActive(true);
-                    ship.GetComponent<ShipMovement>().OnEnter(_shipNames[indexShip], transform.position);
+                    CreateGameobject(_shipNames[indexShip], transform.position);
 
                     _countShip++;
                     ConfigurateTimer();
@@ -60,17 +54,16 @@ namespace ShipTest.Ship
                 else
                 {
                     ConfigurateTimer();
-                    Debug.Log("Not more");
+                    Debug.LogWarning("Not more space in the scene");
                 }
             }
             else
                 _retrySpawnShip = true;
         }
-        private void ReturnShip(GameObject _ship)
+        protected override void ReturnGameobject(GameObject _ship)
         {
             _countShip--;
-            string shipName = _ship.GetComponent<ShipMovement>().OnExit();
-            PoolerController.Instance.ReturnToPool(_ship, shipName);
+            base.ReturnGameobject(_ship);
         }    
     }
 }
