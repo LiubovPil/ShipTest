@@ -7,6 +7,7 @@ namespace ShipTest.Projectile
     [RequireComponent(typeof(SphereCollider))]
     public class ProjectileShot : MonoBehaviour, IPooling
     {
+        [Header("Projectile settings")]
         [SerializeField] private int _projectileDistance;
         [SerializeField] private int _projectileSpeed;
 
@@ -23,6 +24,8 @@ namespace ShipTest.Projectile
         public void OnEnter(string projectileName, Vector3 startPosition)
         {
             _projectaleName = projectileName;
+
+            transform.position = startPosition;
 
             RaycastHit hitInformation;
             Vector3 projectileGoal;

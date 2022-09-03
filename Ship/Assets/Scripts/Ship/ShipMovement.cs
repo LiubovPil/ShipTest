@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using ShipTest.Utility;
 
@@ -6,34 +7,54 @@ namespace ShipTest.Ship
     public class ShipMovement : MonoBehaviour, IPooling
     {
         [Header("The settings of movement")]
-        [SerializeField] private int _minShipSpeed;
-        [SerializeField] private int _maxShipSpeed;
+        [SerializeField] private List<Transform> _wayPoints;
+        [SerializeField] private float _minShipSpeed;
+        [SerializeField] private float _maxShipSpeed;
 
-        private bool _isActivated = false;
+        private readonly float _offset = 0.3f;
+
+        private bool _isReversed = false;
 
         private string _currentShipName;
 
-        private int _currentShipSpeed;
+        private float _currentShipSpeed;
+        private int _currentWayPointIndex = 0;
 
         private void FixedUpdate()
         {
-            if(_isActivated)
-                Move();
+            Move();
         }
         private void Move()
         {
-            //MoveTowards until checkPoint
+            GoToNextPoint();
+            transform.position = Vector3.MoveTowards(transform.position, 
+                _wayPoints[_currentWayPointIndex].position, _currentShipSpeed);
+        }
+        private void GoToNextPoint()
+        {
+            Vector3 target = _wayPoints[_currentWayPointIndex].position;
+            if (Vector3.Distance(transform.position, target) <= _offset)
+            { 
+                int wayPointMaxIndex = _wayPoints.Count - 1;
+                if (!_isReversed)
+                    ++_currentWayPointIndex;
+                else
+                    --_currentWayPointIndex;
+
+                if (_currentWayPointIndex == wayPointMaxIndex)
+                    _isReversed = true;
+                else if (_currentWayPointIndex == 0)
+                    _isReversed = false;
+            }
         }
         public void OnEnter(string shipName, Vector3 startPosition)
         {
             transform.position = startPosition;
             _currentShipSpeed = Random.Range(_minShipSpeed, _maxShipSpeed);
             _currentShipName = shipName;
-            _isActivated = true;
         }
         public string OnExit()
         {
-            _isActivated = false;
             return _currentShipName;
         }
     }

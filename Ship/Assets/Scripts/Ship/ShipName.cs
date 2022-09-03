@@ -6,8 +6,8 @@ namespace ShipTest.Ship
 {
     public enum ShipName
     {
-       CowBoy,
-       Girl,
+       ArrowSmall,
+       ArrowBig,
        Target,
     }
 }

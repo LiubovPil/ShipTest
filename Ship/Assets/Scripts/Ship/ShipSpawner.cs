@@ -10,15 +10,14 @@ namespace ShipTest.Ship
         [Header("The settings of spawn")]
         [SerializeField] private int _minSpawnShipTime;
         [SerializeField] private int _maxSpawnShipTime;
-        [SerializeField] private int _maxNumShip;
+        [SerializeField] private int _maxNumShip = 7;
+        [SerializeField] private int _countShip = 0;
+
+        private readonly string[] _shipNames = System.Enum.GetNames(typeof(ShipName));
 
         private Timer _spawnShipTimer;
 
-        private string[] _shipNames = System.Enum.GetNames(typeof(ShipName));
-
         private bool _retrySpawnShip = false;
-
-        private int _countShip = 0;
 
         private void Awake()
         {
@@ -62,7 +61,8 @@ namespace ShipTest.Ship
         }
         protected override void ReturnGameobject(GameObject _ship)
         {
-            _countShip--;
+            if(_ship.CompareTag("Ship"))
+                _countShip--;
             base.ReturnGameobject(_ship);
         }    
     }

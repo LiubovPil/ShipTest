@@ -7,11 +7,17 @@ namespace ShipTest.Ship
     {
         [SerializeField] private int _shipHealth;
 
-        private void OnTriggerEnter(Collider other)
+        private int _healthCount;
+
+        private void OnEnable()
         {
-            if (other.CompareTag("Projectile"))
+            _healthCount = _shipHealth;
+        }
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Projectile"))
             {
-                if (--_shipHealth == 0)
+                if (--_healthCount == 0)
                     _zeroHealthEvent.Invoke(gameObject);
             }
         }

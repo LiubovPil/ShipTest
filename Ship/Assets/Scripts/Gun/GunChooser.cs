@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +10,11 @@ namespace ShipTest.Gun
 
         private ShipTestController _shipTestController;
 
+        int _currentGunIndex = 0;
+        private void Awake()
+        {
+            _shipTestController = new ShipTestController();
+        }
         private void OnEnable()
         {
             _shipTestController.Gun.Choose.Enable();
@@ -20,37 +24,21 @@ namespace ShipTest.Gun
         /// </summary>
         private void OnChoose()
         {
+            int gunsMaxIndex = _guns.Count - 1;
 
-        }
+            if (++_currentGunIndex > gunsMaxIndex)
+                _currentGunIndex = 0;
 
-        /*    public void GoToNextWeapon()
-    {
-        List<Gun> availableGuns = guns.Where(item => item.available == true).ToList();
-        int maximumAvailableGunIndex = availableGuns.Count - 1;
-        int equippedAvailableGunIndex = availableGuns.IndexOf(guns[equippedGunIndex]);
+            _guns[_currentGunIndex].gameObject.SetActive(true);
 
-        equippedAvailableGunIndex += 1;
-        if (equippedAvailableGunIndex > maximumAvailableGunIndex)
-        {
-            equippedAvailableGunIndex = 0;
-        }
-
-        EquipGun(guns.IndexOf(availableGuns[equippedAvailableGunIndex]));
-    }
-         
-         public void EquipGun(int gunIndex)
-        {
-            equippedGunIndex = gunIndex;
-            guns[equippedGunIndex].gameObject.SetActive(true);
-            for (int i = 0; i < guns.Count; i++)
+            for (int i = 0; i < _guns.Count; i++)
             {
-                if (equippedGunIndex != i)
+                if (_currentGunIndex != i)
                 {
-                    guns[i].gameObject.SetActive(false);
+                    _guns[i].gameObject.SetActive(false);
                 }
             }
-            GameManager.UpdateUIElements();
-        }*/
+        }
         private void OnDisable()
         {
             _shipTestController.Gun.Choose.Enable();

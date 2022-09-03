@@ -7,8 +7,7 @@ namespace ShipTest.Projectile
     [RequireComponent(typeof(Timer))]
     public class ProjectileHealth : HealthCount
     {
-        [SerializeField]
-        private int _projectileLifetime; 
+        [SerializeField] private int _projectileLifetime; 
 
         private Timer _projectileTimer;
         private void OnEnable()
@@ -21,6 +20,11 @@ namespace ShipTest.Projectile
         private void Update()
         {
             if (_projectileTimer.Finished)
+                _zeroHealthEvent.Invoke(gameObject);
+        }
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Ship"))
                 _zeroHealthEvent.Invoke(gameObject);
         }
     }

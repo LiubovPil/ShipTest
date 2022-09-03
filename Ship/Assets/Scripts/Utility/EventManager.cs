@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using ShipTest.Ship;
-using ShipTest.Projectile;
 
 namespace ShipTest.Utility
 {

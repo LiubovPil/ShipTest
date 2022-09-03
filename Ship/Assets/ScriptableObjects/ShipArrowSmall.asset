@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f177691cc0b9ced4597a0e97e4372937, type: 3}
-  m_Name: ShipCowBoy
+  m_Name: ShipArrowSmall
   m_EditorClassIdentifier: 
-  _poolPrefab: {fileID: 6815515574196712277, guid: 9a4156c5e9acce2408a80a0141255f07, type: 3}
-  _poolName: CowBoy
-  _poolCapacity: 10
+  _poolPrefab: {fileID: 929403312112934975, guid: 712b3aa794e55044bbf281a245ecc819, type: 3}
+  _poolName: ArrowSmall
+  _poolCapacity: 7

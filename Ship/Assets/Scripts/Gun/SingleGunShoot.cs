@@ -23,6 +23,9 @@ namespace ShipTest.Gun
             if (_singleGunShootTimer.Finished)
                 _isActive = true;
         }
+        /// <summary>
+        /// Is called from player Input (attached to the each gun)
+        /// </summary>
         protected override void OnShoot()
         {
             if (_isActive)

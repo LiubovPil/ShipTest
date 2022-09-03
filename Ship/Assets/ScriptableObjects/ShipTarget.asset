@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f177691cc0b9ced4597a0e97e4372937, type: 3}
   m_Name: ShipTarget
   m_EditorClassIdentifier: 
-  _poolPrefab: {fileID: 7491926729444893825, guid: e346c81af0e177444bec60d8d63e7b4d, type: 3}
+  _poolPrefab: {fileID: 217113132278148584, guid: f629bb9b1f952b2448876299ca4dac5a, type: 3}
   _poolName: Target
-  _poolCapacity: 10
+  _poolCapacity: 7
