@@ -5,9 +5,9 @@ namespace ShipTest.Gun
 {
     public class GunShoot : Creator
     {
-        protected readonly string _projectileName = "Projectile";
+        [SerializeField] protected Transform _shotPosition; 
 
-        private readonly Vector3 _offset = new Vector3(0f, 0.135f, 0.62f);
+        protected readonly string _projectileName = "Projectile";
 
         private ShipTestController _shipTestController;
         private void OnEnable()
@@ -21,7 +21,7 @@ namespace ShipTest.Gun
         /// </summary>
         protected virtual void OnShoot()
         {
-            CreateGameobject(_projectileName, transform.position + _offset);
+            CreateGameobject(_projectileName, _shotPosition.position);
         }
         private void OnDisable()
         {

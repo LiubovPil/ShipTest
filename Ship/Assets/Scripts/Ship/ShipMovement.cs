@@ -20,6 +20,11 @@ namespace ShipTest.Ship
         private float _currentShipSpeed;
         private int _currentWayPointIndex = 0;
 
+        public string PoolingName
+        {
+            get { return _currentShipName; } 
+        }
+
         private void FixedUpdate()
         {
             Move();
@@ -52,10 +57,6 @@ namespace ShipTest.Ship
             transform.position = startPosition;
             _currentShipSpeed = Random.Range(_minShipSpeed, _maxShipSpeed);
             _currentShipName = shipName;
-        }
-        public string OnExit()
-        {
-            return _currentShipName;
         }
     }
 }

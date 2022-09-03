@@ -17,7 +17,7 @@ namespace ShipTest.Utility
         }
         protected virtual void ReturnGameobject(GameObject gameObject)
         {
-            string gameObjectName = gameObject.GetComponent<IPooling>().OnExit();
+            string gameObjectName = gameObject.GetComponent<IPooling>().PoolingName;
             PoolerController.Instance.ReturnToPool(gameObject, gameObjectName);
         }
     }

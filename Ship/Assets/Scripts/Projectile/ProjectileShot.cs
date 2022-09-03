@@ -8,16 +8,22 @@ namespace ShipTest.Projectile
     public class ProjectileShot : MonoBehaviour, IPooling
     {
         [Header("Projectile settings")]
-        [SerializeField] private int _projectileDistance;
         [SerializeField] private int _projectileSpeed;
+        [SerializeField] private int _projectileDistance;
+        [SerializeField] private Vector3 _velocity;
 
         private readonly Vector3 _aimCenter = new Vector3(0.5f, 0.5f, 0f);
 
         private Rigidbody _projectileRigidbody;
 
-        private string _projectaleName;
+        private string _projectaleName = "Projectile";
 
-        private void Awake()
+        public string PoolingName
+        {
+            get { return _projectaleName; }
+        }
+
+        private void OnEnable()
         {
             _projectileRigidbody = GetComponent<Rigidbody>();
         }
@@ -26,6 +32,9 @@ namespace ShipTest.Projectile
             _projectaleName = projectileName;
 
             transform.position = startPosition;
+
+            _projectileRigidbody.velocity = Vector3.zero;
+            _projectileRigidbody.angularVelocity = Vector3.zero;
 
             RaycastHit hitInformation;
             Vector3 projectileGoal;
@@ -41,13 +50,7 @@ namespace ShipTest.Projectile
             projectileDirection = projectileGoal - transform.position;
 
             _projectileRigidbody.AddForce
-                (projectileDirection.normalized * _projectileSpeed, ForceMode.Impulse);
-        }
-        public string OnExit()
-        {
-            _projectileRigidbody.velocity = new Vector3(0f, 0f, 0f);
-            _projectileRigidbody.angularVelocity = new Vector3(0f, 0f, 0f);
-            return _projectaleName;
+            (projectileDirection.normalized * _projectileSpeed, ForceMode.Impulse);
         }
     }
 }
