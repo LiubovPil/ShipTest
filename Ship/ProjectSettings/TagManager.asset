@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Projectile
   - Ship
+  - Obstacle
+  - Ground
+  - Money
+  - Bomb
+  - Background
+  - Powerup
+  - Enemy
+  - Bad
+  - Sensor
+  - Food
   layers:
   - Default
   - TransparentFX
@@ -18,8 +28,8 @@ TagManager:
   - Ship
   - Gun
   - Projectile
-  - 
-  - 
+  - MaskLayer
+  - MaskedLayer
   - 
   - 
   - 
